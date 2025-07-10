@@ -94,3 +94,99 @@ CREATE TABLE proyecto(
 	FOREIGN KEY (idgrupousuario) REFERENCES grupousuario(idgrupousuario),
 	FOREIGN KEY (idsubtproyecto) REFERENCES subtproyecto(idsubtproyecto)
 );
+
+
+-- En SQL Server
+
+
+IF DB_ID('SGProyectos') IS NOT NULL
+    DROP DATABASE SGProyectos;
+GO
+
+CREATE DATABASE SGProyectos;
+GO
+
+USE SGProyectos;
+GO
+
+CREATE TABLE usuario (
+    idusuario INT IDENTITY(1,1) PRIMARY KEY,
+    correoelectronico VARCHAR(100),
+    nombreusuario VARCHAR(15),
+    contrasena VARCHAR(100),
+    estado BIT -- 0: ACTIVO, 1: NO ACTIVO
+);
+
+CREATE TABLE data_usuario (
+    iddata INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(80),
+    apellido VARCHAR(120),
+    dni CHAR(8),
+    especialidad VARCHAR(300),
+    informacionactual BIT,
+    fechacreacion DATE DEFAULT GETDATE(),
+    idusuario INT,
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario)
+);
+
+CREATE TABLE cliente (
+    idcliente INT IDENTITY(1,1) PRIMARY KEY,
+    empresa VARCHAR(200),
+    RUC VARCHAR(15),
+    nombres VARCHAR(80),
+    apellidos VARCHAR(120),
+    dni CHAR(8),
+    fechacreacion DATE DEFAULT GETDATE(),
+    numerotel VARCHAR(15),
+    nacionalidad VARCHAR(70),
+    creadordecliente VARCHAR(15),
+    ultimocontrato DATE,
+    encontrato BIT -- 0: ACTIVO, 1: NO ACTIVO
+);
+
+CREATE TABLE tipoproyecto (
+    idtipoproyecto INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(200)
+);
+
+CREATE TABLE subtproyecto (
+    idsubtproyecto INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(200),
+    idtipoproyecto INT,
+    FOREIGN KEY (idtipoproyecto) REFERENCES tipoproyecto(idtipoproyecto)
+);
+
+CREATE TABLE grupousuario (
+    idgrupousuario INT IDENTITY(1,1) PRIMARY KEY,
+    nombregrupo VARCHAR(100),
+    estado BIT, -- 0: ACTIVO, 1: NO ACTIVO
+    fechacreacion DATE DEFAULT GETDATE(),
+    idencargado INT,
+    FOREIGN KEY (idencargado) REFERENCES usuario(idusuario)
+);
+
+CREATE TABLE grupo_usuario_miembro (
+    idgrupousuario INT,
+    idusuario INT,
+    rol_en_grupo VARCHAR(50),
+    PRIMARY KEY (idgrupousuario, idusuario),
+    FOREIGN KEY (idgrupousuario) REFERENCES grupousuario(idgrupousuario),
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario)
+);
+
+CREATE TABLE proyecto (
+    idproyecto INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(200),
+    estado BIT, -- 0: ACTIVO, 1: NO ACTIVO
+    ultimaactualizacion DATE,
+    repoGIT VARCHAR(200),
+    idcliente INT NOT NULL,
+    idgrupousuario INT NOT NULL,
+    idsubtproyecto INT NOT NULL,
+    FOREIGN KEY (idcliente) REFERENCES cliente(idcliente),
+    FOREIGN KEY (idgrupousuario) REFERENCES grupousuario(idgrupousuario),
+    FOREIGN KEY (idsubtproyecto) REFERENCES subtproyecto(idsubtproyecto)
+);

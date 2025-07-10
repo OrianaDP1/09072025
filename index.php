@@ -1,16 +1,42 @@
 <?php
-//    require_once './controller/FamiliaController.php';
-//    require_once './controller/CategoriaController.php';
-    require_once './controller/UsuarioController.php';
-    $accion=isset($_GET['accion'])?$_GET['accion']:'cargarusuarios';
+require_once './controller/ProyectoController.php';
+require_once './controller/UsuarioController.php';
+require_once './controller/GrupoUsuarioController.php';
+
+    $accion=isset($_GET['accion'])?$_GET['accion']:'login';
     switch($accion){
-        case 'cargarusuarios':
+
+        case 'login':
             $controller=new UsuarioController();
-            $controller->cargar();
+            $controller->validarLogin();
         break;
-        case 'guardarusuario':
+        case 'registrarse':
             $controller=new UsuarioController();
-            $controller->guardar();
+            $controller->registrarse();
+        break;
+        case 'misgrupos':
+            $controller=new GrupousuarioController();
+            $controller->misGrupos();
+        break;
+        case 'paginainicio':
+            $controller=new UsuarioController();
+            $controller->paginainicio();        
+        break;
+        case 'cargarproyectos':
+            $controller=new ProyectoController();
+            $controller->cargar();        
+        break;
+        case 'guardarproyecto':
+            $controller=new ProyectoController();
+            $controller->guardar();        
+        break;
+        case 'cargarclientes':
+            $controller=new ClienteController();
+            $controller->guardar();        
+        break;
+        case 'logout':
+            $controller=new UsuarioController();
+            $controller->logout();      
         break;
     }
 ?>
