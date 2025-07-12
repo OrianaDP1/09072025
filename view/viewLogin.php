@@ -1,7 +1,7 @@
 <?php require_once __DIR__ . '/../config/config.php';?>
 <!DOCTYPE html>
 <?php
-echo 'URL actual: ' . $_SERVER['REQUEST_URI'];
+//echo 'URL actual: ' . $_SERVER['REQUEST_URI'];
 ?>
 <html lang="es">
 <head>

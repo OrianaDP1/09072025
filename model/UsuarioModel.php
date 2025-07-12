@@ -17,6 +17,23 @@
             $ps->bindParam(":es", $usuario->getEstado());
             $ps->execute();
         }
+
+        public function cargar(){
+            $sql="select idusuario,correoelectronico,nombreusuario,estado from usuario";
+            $ps=$this->db->prepare($sql);
+            $ps->execute();
+            $filas=$ps->fetchall();
+            $usuarios=array();
+            foreach($filas as $f){
+                $fam=new Usuario();
+                $fam->setIdUsuario($f[0]);
+                $fam->setCorreoElectronico($f[1]);
+                $fam->setNombreusuario($f[2]);
+                $fam->setEstado($f[3]);
+                array_push($usuarios, $fam);
+            }
+            return $usuarios;
+        }
         public function cargarporEstado(){
             $sql="select idusuario,correoelectronico,nombreusuario,estado from usuario where estado=1";
             $ps=$this->db->prepare($sql);

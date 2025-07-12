@@ -3,6 +3,15 @@ require_once './model/GrupoUsuarioModel.php';
 require_once './helpers/verificacion.php';
 
 class GrupoUsuarioController {
+    public function cargar() {
+        $model = new GrupousuarioModel();
+        $grupousuarios = $model->cargar();
+        $model=new UsuarioModel();
+        $usuarios=$model->cargar();
+
+        require './view/viewLosGrupos.php';
+    }
+
     public function misGrupos() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();

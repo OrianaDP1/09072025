@@ -10,8 +10,11 @@
 require_once 'menu.php'?>
 
 <div class="container py-4">
-  <h2 class="mb-4">Grupos donde participas</h2>
-
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-4">Grupos donde participas</h2>
+      <a href="index.php?accion=losgrupos" class="btn btn-success"> Ver todos los grupos</a>
+    </div>
+    
   <?php if (empty($grupos)): ?>
     <div class="alert alert-warning">No estás asignado a ningún grupo.</div>
   <?php else: ?>

@@ -2,6 +2,7 @@
 require_once './controller/ProyectoController.php';
 require_once './controller/UsuarioController.php';
 require_once './controller/GrupoUsuarioController.php';
+require_once './controller/ClienteController.php';
 
     $accion=isset($_GET['accion'])?$_GET['accion']:'login';
     switch($accion){
@@ -18,6 +19,10 @@ require_once './controller/GrupoUsuarioController.php';
             $controller=new GrupousuarioController();
             $controller->misGrupos();
         break;
+        case 'losgrupos':
+            $controller=new GrupousuarioController();
+            $controller->cargar();
+        break;
         case 'paginainicio':
             $controller=new UsuarioController();
             $controller->paginainicio();        
@@ -32,7 +37,7 @@ require_once './controller/GrupoUsuarioController.php';
         break;
         case 'cargarclientes':
             $controller=new ClienteController();
-            $controller->guardar();        
+            $controller->cargar();        
         break;
         case 'logout':
             $controller=new UsuarioController();

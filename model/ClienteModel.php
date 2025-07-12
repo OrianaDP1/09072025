@@ -26,23 +26,25 @@
         }
 
         public function cargar(){
-            $sql="select * from cliente";
+            $sql = "SELECT idcliente, empresa, RUC, nombres, apellidos, dni, fechacreacion, numerotel, nacionalidad, creadordecliente, ultimocontrato, encontrato FROM cliente";
             $ps=$this->db->prepare($sql);
             $ps->execute();
             $filas=$ps->fetchall();
             $clientes=array();
             foreach($filas as $f){
-                $fam=new Cliente();
+                $fam = new Cliente();
                 $fam->setIdcliente($f[0]);
                 $fam->setEmpresa($f[1]);
-                $fam->setNombres($f[2]);
-                $fam->setApellidos($f[3]);
-                $fam->setDni($f[4]);
-                $fam->setFechacreacion($f[5]);
-                $fam->setNumerotel($f[6]);
-                $fam->setNacionalidad($f[7]);
-                $fam->setCreadordecliente($f[8]);
-                $fam->setUltimocontrato($f[9]);
+                $fam->setRUC($f[2]);
+                $fam->setNombres($f[3]);
+                $fam->setApellidos($f[4]);
+                $fam->setDni($f[5]);
+                $fam->setFechacreacion($f[6]);
+                $fam->setNumerotel($f[7]);
+                $fam->setNacionalidad($f[8]);
+                $fam->setCreadordecliente($f[9]);
+                $fam->setUltimocontrato($f[10]);
+                $fam->setEncontrato($f[11]);
                 array_push($clientes, $fam);
             }
             return $clientes;

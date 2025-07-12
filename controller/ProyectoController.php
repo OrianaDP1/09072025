@@ -14,6 +14,15 @@ class ProyectoController {
 
         $model = new ProyectoModel();
         $proyectos = $model->cargar();
+        $clienteModel = new ClienteModel();
+        $grupoModel = new GrupoUsuarioModel();
+        $subtModel = new SubtproyectoModel();
+
+        $clientes = $clienteModel->cargar();
+        $grupos = $grupoModel->cargar();
+        $tipoModel = new TipoproyectoModel();
+        $tipos = $tipoModel->cargar(); 
+        $subtproyectos = $subtModel->Cargar();
 
         require __DIR__ . '/../view/viewCargarProyectos.php';
     }
@@ -35,19 +44,18 @@ class ProyectoController {
             $model = new ProyectoModel();
             $model->guardar($proyecto);
 
-            header('Location: index.php?accion=proyectos');
+            header('Location: index.php?accion=cargarproyectos');
             exit;
         } else {
-            // Para el formulario, cargamos las listas de datos relacionados
             $clienteModel = new ClienteModel();
             $grupoModel = new GrupoUsuarioModel();
             $subtModel = new SubtproyectoModel();
 
             $clientes = $clienteModel->cargar();
-            $grupos = $grupoModel->cargar(); // debe existir
+            $grupos = $grupoModel->cargar();
             $tipoModel = new TipoproyectoModel();
-            $tipos = $tipoModel->cargar(); // todos los tipos de proyecto
-            $subtproyectos = [];
+            $tipos = $tipoModel->cargar(); 
+            $subtproyectos = $subtModel->Cargar();
             require __DIR__ . '/../view/viewGuardarProyecto.php';
         }
     }

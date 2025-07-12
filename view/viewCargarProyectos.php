@@ -16,6 +16,9 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
+            <th>Cliente</th>
+            <th>Grupo</th>
+            <th>Subtipo</th>
             <th>Estado</th>
             <th>Última actualización</th>
             <th>Repositorio</th>
@@ -27,6 +30,43 @@
               <td><?= $p->getIdproyecto() ?></td>
               <td><?= htmlspecialchars($p->getNombre()) ?></td>
               <td><?= htmlspecialchars($p->getDescripcion()) ?></td>
+
+              <!-- Cliente -->
+              <td>
+                <?php
+                  foreach ($clientes as $c) {
+                    if ($c->getIdcliente() == $p->getIdcliente()) {
+                      echo htmlspecialchars($c->getEmpresa());
+                      break;
+                    }
+                  }
+                ?>
+              </td>
+
+              <!-- Grupo -->
+              <td>
+                <?php
+                  foreach ($grupos as $g) {
+                    if ($g->getIdgrupousuario() == $p->getIdgrupousuario()) {
+                      echo htmlspecialchars($g->getNombregrupo());
+                      break;
+                    }
+                  }
+                ?>
+              </td>
+
+              <!-- Subtipo -->
+              <td>
+                <?php
+                  foreach ($subtproyectos as $s) {
+                    if ($s->getIdsubtproyecto() == $p->getIdsubtproyecto()) {
+                      echo htmlspecialchars($s->getNombre());
+                      break;
+                    }
+                  }
+                ?>
+              </td>
+
               <td>
                 <span class="badge bg-<?= $p->getEstado() == 0 ? 'success' : 'secondary' ?>">
                   <?= $p->getEstado() == 0 ? 'Activo' : 'Inactivo' ?>

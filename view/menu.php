@@ -14,7 +14,7 @@
            <a class="nav-link" href="../index.php?accion=misgrupos">Mis Grupos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.php?accion=clientes">Clientes</a>
+          <a class="nav-link" href="../index.php?accion=cargarclientes">Clientes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../index.php?accion=cargarproyectos">Proyectos</a>
