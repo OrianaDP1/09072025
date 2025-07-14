@@ -66,9 +66,32 @@ class ProyectoController {
         if (isset($_GET['idproyecto'])) {
             $model = new ProyectoModel();
             $model->borrar($_GET['idproyecto']);
-            header('Location: index.php?accion=proyectos');
+            header('Location: index.php?accion=cargarproyectos');
             exit;
         }
     }
+    public function reporteProyectosPorEmpresa() {
+    $model = new ProyectoModel();
+    $resultados = $model->cargarProyectosConCliente();
+
+    $agrupado = [];
+
+    foreach ($resultados as $fila) {
+        $empresa = $fila['empresa'];
+        $agrupado[$empresa]['empresa'] = $empresa;
+        $agrupado[$empresa]['ruc'] = $fila['RUC'];
+        $agrupado[$empresa]['contacto'] = $fila['nombres'] . ' ' . $fila['apellidos'];
+        $agrupado[$empresa]['proyectos'][] = [
+            'nombre' => $fila['nombre_proyecto'],
+            'descripcion' => $fila['descripcion'],
+            'estado' => $fila['estado'],
+            'ultimaactualizacion' => $fila['ultimaactualizacion'],
+            'repoGIT' => $fila['repoGIT']
+        ];
+    }
+
+    require './view/viewReporteProyectosPorEmpresa.php';
+}
+
 }
 ?>

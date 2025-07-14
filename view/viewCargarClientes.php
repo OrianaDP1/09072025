@@ -21,6 +21,8 @@
             <th>Teléfono</th>
             <th>País</th>
             <th>Último Contrato</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +35,20 @@
               <td><?= $c->getNumerotel() ?></td>
               <td><?= $c->getNacionalidad() ?></td>
               <td><?= $c->getUltimocontrato() ?></td>
+              <td>
+                <a href="index.php?accion=eliminarcliente&idcli<?= $c->getIdcliente() ?>"
+                  onclick="return confirm('¿Estás seguro de eliminar este cliente?')"
+                  class="btn btn-danger btn-sm">
+                  Eliminar
+                </a>
+              </td>
+
+              <td>
+                <a href="../index.php?accion=modificarcliente&idcliente=<?= $c->getIdcliente() ?>"
+                  class="btn btn-primary btn-sm">
+                  Modificar
+                </a>
+              </td>            
             </tr>
           <?php endforeach; ?>
         </tbody>

@@ -36,10 +36,37 @@ class ClienteController {
     public function borrar() {
         if (isset($_GET['idcli'])) {
             $model = new ClienteModel();
+            $clientesmodel = new ClienteModel();
+            $clientes = $clientesmodel->cargar();
             $model->borrar($_GET['idcli']);
             header('Location: index.php?accion=cargarclientes');
         } else {
             echo "ID de cliente no especificado.";
         }
     }
+    
+    public function modificar() {
+        if (isset($_GET['idcli'])){
+            $model = new ClienteModel();
+            $clientesmodel= new ClienteModel();
+            $clientes = $clientesmodel->cargar();
+            $cliente= new Cliente();
+            $cliente->setEmpresa($_POST['empresa']);
+            $cliente->setRUC($_POST['ruc']);
+            $cliente->setNombres($_POST['nombres']);
+            $cliente->setApellidos($_POST['apellidos']);
+            $cliente->setDni($_POST['dni']);
+            $cliente->setNumerotel($_POST['numerotel']);
+            $cliente->setNacionalidad($_POST['nacionalidad']);
+            $cliente->setCreadordecliente($_POST['creadordecliente']);
+            $cliente->setUltimocontrato($_POST['ultimocontrato']);
+            $cliente->setEncontrato($_POST['encontrato']);
+            $cliente->setIdcliente($_GET['idcli']);
+            $model->modificar($cliente);
+            header('Location: index.php?accion=cargarclientes');
+        } else {
+            echo "ID de cliente no especificado.";
+        }
+    }
 }
+

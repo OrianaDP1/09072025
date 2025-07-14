@@ -9,8 +9,12 @@
         }
 
         public function guardar(Cliente $cliente) {
-            $sql = "INSERT INTO cliente (empresa, RUC, nombres, apellidos, dni, numerotel, nacionalidad, creadordecliente, ultimocontrato, encontrato)
-                    VALUES (:e, :r, :n, :a, :d, :nt, :na, :c, :uc, :ec, :en)";
+            $sql = "INSERT INTO cliente (
+                        empresa, RUC, nombres, apellidos, dni, numerotel, nacionalidad, creadordecliente, ultimocontrato, encontrato
+                    ) VALUES (
+                        :e, :r, :n, :a, :d, :nt, :na, :c, :uc, :en
+                    )";
+
             $ps = $this->db->prepare($sql);
             $ps->bindParam(":e", $cliente->getEmpresa());
             $ps->bindParam(":r", $cliente->getRUC());
@@ -54,6 +58,35 @@
             $sql="delete from cliente where idcliente=:idcli";
             $ps=$this->db->prepare($sql);
             $ps->bindParam(':idcli', $idcli);
+            $ps->execute();
+        }
+
+        public function modificar(Cliente $cliente) {
+            $sql = "UPDATE cliente SET 
+                        empresa = :e, 
+                        RUC = :r, 
+                        nombres = :n, 
+                        apellidos = :a, 
+                        dni = :d, 
+                        numerotel = :nt, 
+                        nacionalidad = :na, 
+                        creadordecliente = :c, 
+                        ultimocontrato = :uc, 
+                        encontrato = :en 
+                    WHERE idcliente = :idcli";
+
+            $ps = $this->db->prepare($sql);
+            $ps->bindParam(":e", $cliente->getEmpresa());
+            $ps->bindParam(":r", $cliente->getRUC());
+            $ps->bindParam(":n", $cliente->getNombres());
+            $ps->bindParam(":a", $cliente->getApellidos());
+            $ps->bindParam(":d", $cliente->getDni());
+            $ps->bindParam(":nt", $cliente->getNumerotel());
+            $ps->bindParam(":na", $cliente->getNacionalidad());
+            $ps->bindParam(":c", $cliente->getCreadordecliente());
+            $ps->bindParam(":uc", $cliente->getUltimocontrato());
+            $ps->bindParam(":en", $cliente->getEncontrato());
+            $ps->bindParam(':idcli', $cliente->getIdcliente());
             $ps->execute();
         }
 

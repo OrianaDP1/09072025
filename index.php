@@ -35,13 +35,33 @@ require_once './controller/ClienteController.php';
             $controller=new ProyectoController();
             $controller->guardar();        
         break;
+        case 'eliminarproyecto';
+            $controller=new ProyectoController();
+            $controller->borrar();     
+        break;
         case 'cargarclientes':
             $controller=new ClienteController();
             $controller->cargar();        
         break;
+        case 'modificarcliente';
+            $controller=new ClienteController();
+            $controller->modificar();        
+        break;
+        case 'eliminarcliente';
+            $controller=new ClienteController();
+            $controller->borrar();        
+        break;
+        case 'guardarcliente';
+            $controller=new ClienteController();
+            $controller->guardar();          
+        break;
         case 'logout':
             $controller=new UsuarioController();
             $controller->logout();      
+        break;
+        case 'reporteproyectos':
+            $controller = new ProyectoController();
+            $controller->reporteProyectosPorEmpresa();
         break;
     }
 ?>

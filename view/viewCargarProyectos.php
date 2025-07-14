@@ -22,6 +22,8 @@
             <th>Estado</th>
             <th>Última actualización</th>
             <th>Repositorio</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
           </tr>
         </thead>
         <tbody>
@@ -76,6 +78,19 @@
               <td>
                 <a href="<?= htmlspecialchars($p->getRepoGIT()) ?>" target="_blank">Repositorio</a>
               </td>
+              <td>
+                <a href="index.php?accion=eliminarproyecto&idproyecto=<?=$p->getIdproyecto() ?>"
+                  onclick="return confirm('¿Estás seguro de eliminar este proyecto?')"
+                  class="btn btn-danger btn-sm">
+                  Eliminar
+                </a>
+              </td>
+              <td>
+                <a href="../index.php?accion=modificarproyecto&idproyecto=<?= $p->getIdproyecto() ?>"
+                  class="btn btn-primary btn-sm">
+                  Modificar
+                </a>
+              </td>     
             </tr>
           <?php endforeach; ?>
         </tbody>

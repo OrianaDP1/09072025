@@ -54,5 +54,23 @@ class ProyectoModel {
         $ps->bindParam(':idp', $idproyecto);
         $ps->execute();
     }
+
+    public function cargarProyectosConCliente() {
+    $sql = "SELECT 
+              c.empresa, c.RUC, c.nombres, c.apellidos,
+              p.nombre AS nombre_proyecto, 
+              p.descripcion, 
+              p.estado, 
+              p.ultimaactualizacion,
+              p.repoGIT
+            FROM cliente c
+            JOIN proyecto p ON c.idcliente = p.idcliente
+            ORDER BY c.empresa, p.ultimaactualizacion DESC";
+
+    $ps = $this->db->prepare($sql);
+    $ps->execute();
+    return $ps->fetchAll(PDO::FETCH_ASSOC);
+    } 
+
 }
 ?>
