@@ -1,3 +1,3 @@
 <?php
-echo "Hola desde Main"
+echo "Hola desde FEATURE ERROR";
 ?>
